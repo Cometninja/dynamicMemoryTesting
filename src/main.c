@@ -29,19 +29,26 @@ bool add_button(char *name,int port,int pin){
     bool ret;
     button_t *dp;
 
-    if(Buttons == NULL){
-        puts("here");
+    dp = get_last_index(); //Buttons;
+
+    if(dp == NULL){
+        puts("NULL");
         Buttons = (button_t*)malloc(sizeof(button_t));
+        printf("Buttons = 0x%x\n",Buttons);
+        dp = get_last_index();
+    }else{
+        puts("NOT_NULL");
+        dp->next = (button_t*)malloc(sizeof(button_t));
+        dp = dp->next;
     }
     
-    dp = get_last_index(); //Buttons;
-    dp->next =(button_t *) malloc(sizeof(button_t));
-    dp = dp->next;
+    printf("dp = \t0x%x\n",dp);
     
     strcpy(dp->name,name);
     dp->port = port;
     dp->pin = pin;
-    
+   
+    printf("dp->port = %d\n",dp->port); 
 }
 
 int get_buttons_size(void){
